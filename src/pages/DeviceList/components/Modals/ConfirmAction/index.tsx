@@ -16,7 +16,6 @@ export const ConfirmAction = ({
   deviceId,
   deviceName,
 }: ModalWarningProps) => {
-  console.log(`===>`, deviceId, deviceName)
   const queryClient = useQueryClient()
 
   const { mutate, isLoading } = useDeleteDevice(deviceId, {

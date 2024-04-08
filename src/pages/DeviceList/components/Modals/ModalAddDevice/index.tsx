@@ -31,9 +31,6 @@ export const ModalAddDevice = ({
     formState: { errors },
   } = useForm<Form>({
     resolver: zodResolver(cosentCollectionFormSchema),
-    defaultValues: {
-      device_type: `WINDOWS`,
-    },
   })
 
   const queryClient = useQueryClient()

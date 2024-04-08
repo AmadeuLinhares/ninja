@@ -5,16 +5,41 @@ import { Skeleton } from '@components/Skeleton'
 import { Typography } from '@components/Typography'
 import { Box } from '@mui/material'
 import { DeviceItem } from '@pages/DeviceList/components/Devices/components/Item'
+import { useGlobalFilter } from '@storage/globalFilters'
 import tokens from '@theme/tokens'
-
+import _ from 'lodash'
 export const Devices = () => {
   const { data, isLoading, isFetching } = useGetDevices()
+  const { deviceName, deviceType, storageFilter } = useGlobalFilter(
+    (state) => state,
+  )
+
+  const formattedData = useMemo(() => {
+    if (data?.length) {
+      let result = data
+
+      if (deviceName) {
+        result = result.filter((item) =>
+          item.system_name.toLowerCase().includes(deviceName.toLowerCase()),
+        )
+      }
+
+      if (deviceType) {
+        result = result.filter(
+          (item) => item.type.toLowerCase() === deviceType.toLowerCase(),
+        )
+      }
+
+      return _.orderBy(result, [`hdd_capacity`], [storageFilter])
+    }
+  }, [data, deviceName, deviceType, storageFilter])
+
   const renderItems = useMemo(() => {
-    if (data?.length)
-      return data.map((val) => <DeviceItem data={val} key={val.id} />)
+    if (formattedData?.length)
+      return formattedData.map((val) => <DeviceItem data={val} key={val.id} />)
 
     return null
-  }, [data])
+  }, [formattedData])
 
   return isLoading || isFetching ? (
     <Skeleton />
