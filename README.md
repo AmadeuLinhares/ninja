@@ -33,8 +33,6 @@ The api that return the consents will be empty by default, so the user will need
 	 - Form validation and prevent re-renders
  - Zod
 	 - Combine with react-hook-form to validate our fields. In this project was not necessary, but i wanted to include because is a powerfull lib to use 
- - Json-server
-	 - To create our fakes api's simulating our back-end
  - Zustand
 	 - State management. In this project, to be honest, i dont think we need a provider, but i added just to show a new tool and because it was a project requirement 
  - Jest
